@@ -2,26 +2,26 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, field_validator
 import sys
 import os
-
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from passlib.context import CryptContext
-from app.database import get_user_collection
+import bcrypt
 from datetime import datetime
 from bson import ObjectId
 from jose import jwt
 
+# Add parent directory to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from app.database import get_user_collection
+
 # Request models
 class SignupRequest(BaseModel):
     username: str
-    email: str  # Changed from EmailStr to allow more flexible validation
+    email: str
     password: str
     
     @field_validator('password')
     @classmethod
     def validate_password(cls, v):
-        """Validate password meets bcrypt requirements"""
+        """Validate password meets requirements"""
         if not v:
             raise ValueError("Password cannot be empty")
         if len(v) < 6:
@@ -50,10 +50,9 @@ class LoginRequest(BaseModel):
         }
 
 router = APIRouter()
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = os.getenv("SECRET_KEY", "super-secret-key")
 
-# Logout route (already there)
+# Logout route
 @router.post("/logout")
 def logout():
     return {"message": "Logged out — please delete your token on the frontend"}
@@ -85,12 +84,7 @@ def signup(user: SignupRequest, db=Depends(get_user_collection)):
             raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
         
         # Truncate password to 72 bytes (bcrypt limitation)
-        password_bytes = user.password.encode('utf-8')
-        if len(password_bytes) > 72:
-            print(f"[SIGNUP DEBUG] Password exceeds 72 bytes, truncating from {len(password_bytes)} to 72 bytes")
-            truncated_password = password_bytes[:72].decode('utf-8', errors='ignore')
-        else:
-            truncated_password = user.password
+        password_bytes = user.password.encode('utf-8')[:72]
         
         # Validate username
         if not user.username or len(user.username) < 3:
@@ -101,7 +95,9 @@ def signup(user: SignupRequest, db=Depends(get_user_collection)):
             print(f"[SIGNUP DEBUG] Email already registered: {user.email}")
             raise HTTPException(status_code=400, detail="Email already registered")
         
-        hashed_pw = pwd_context.hash(truncated_password)
+        # Hash password using bcrypt directly
+        hashed_pw = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
+        
         user_data = {
             "username": user.username,
             "email": user.email,
@@ -119,7 +115,7 @@ def signup(user: SignupRequest, db=Depends(get_user_collection)):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Signup failed: {str(e)}")
 
-#  Login route
+# Login route
 @router.post("/login")
 def login(user: LoginRequest, db=Depends(get_user_collection)):
     try:
@@ -136,15 +132,12 @@ def login(user: LoginRequest, db=Depends(get_user_collection)):
             raise HTTPException(status_code=400, detail="Password required")
         
         # Truncate password to 72 bytes (bcrypt limitation)
-        password_bytes = user.password.encode('utf-8')
-        if len(password_bytes) > 72:
-            print(f"[LOGIN DEBUG] Password exceeds 72 bytes, truncating from {len(password_bytes)} to 72 bytes")
-            truncated_password = password_bytes[:72].decode('utf-8', errors='ignore')
-        else:
-            truncated_password = user.password
+        password_bytes = user.password.encode('utf-8')[:72]
         
         db_user = db.find_one({"email": user.email})
-        if not db_user or not pwd_context.verify(truncated_password, db_user["password"]):
+        
+        # Verify password using bcrypt
+        if not db_user or not bcrypt.checkpw(password_bytes, db_user["password"]):
             print(f"[LOGIN DEBUG] Invalid credentials for email: {user.email}")
             raise HTTPException(status_code=401, detail="Invalid credentials")
         
@@ -152,7 +145,7 @@ def login(user: LoginRequest, db=Depends(get_user_collection)):
         token_data = {
             "user_id": str(db_user["_id"]), 
             "email": user.email,
-            "sub": user.email  # Standard JWT subject field
+            "sub": user.email
         }
         token = jwt.encode(token_data, SECRET_KEY, algorithm="HS256")
         print(f"[LOGIN DEBUG] Login successful for: {user.email}")
