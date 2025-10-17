@@ -1,0 +1,16 @@
+# Backend-specific ignores
+# (Main .gitignore in root handles most common patterns)
+
+# Backend-specific environment files
+.env.backend
+.env.production
+
+# Backend-specific logs
+backend.log
+api.log
+
+# Backend-specific database files
+backend.db
+backend.sqlite3
+
+
