@@ -1,154 +1,186 @@
-Full-Stack Todo App — FastAPI + MongoDB + Next.js
-A modern, full-featured Todo application built with FastAPI (Python) for the backend, MongoDB Atlas for data storage, and Next.js (React + TypeScript) for the frontend. This app supports user authentication, task and label management, and a responsive dashboard UI — all organized with clean architecture and scalable practices.
+# 📝 Todo App
 
-Tech Stack
-Layer	    Technology
-Frontend	Next.js 14, React, TypeScript, Tailwind CSS
-Backend	    FastAPI, Pydantic v2, Uvicorn
-Database	MongoDB Atlas (NoSQL) via pymongo
-Auth	    JWT-based authentication, bcrypt
-Dev Tools	ESLint, Prettier, Pyright, dotenv
-Deployment	Vercel (frontend), Render/Heroku (backend-ready)
+A modern full-stack task management application built with **FastAPI** (Python) and **Next.js** (React + TypeScript). Features task management, authentication, calendar view, labels, and affirmations.
 
-Features
-✅ User Signup & Login with JWT
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Backend: FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)
+![Frontend: Next.js](https://img.shields.io/badge/Frontend-Next.js-000000.svg)
 
-✅ MongoDB Atlas integration for persistent storage
+## ✨ Features
 
-✅ CRUD operations for Todos and Labels
+- **Authentication**: JWT-based login/signup with bcrypt password hashing
+- **Task Management**: Create, update, delete, filter, and search tasks by priority/labels
+- **Calendar View**: Visual monthly calendar with task indicators
+- **Labels & Organization**: Custom labels for task categorization
+- **User Profile**: Customizable avatar, username, email, and bio
+- **Affirmations**: 30+ curated spiritual affirmations with animations
+- **Theme Support**: Light/Dark mode with persistent settings
+- **Responsive Design**: Works on desktop, tablet, and mobile
 
-✅ Responsive dashboard UI with protected routes
+## 🛠 Tech Stack
 
-✅ Password hashing and secure token handling
+| Component | Technology | Version |
+|-----------|-----------|---------|
+| Backend | FastAPI, Python | ≥0.115.0 |
+| Frontend | Next.js, React, TypeScript | 15.5.5 |
+| Database | MongoDB | ≥4.10.0 |
+| Authentication | JWT, bcrypt | - |
 
-✅ Modular backend with routers, models, and schemas
+## 📁 Project Structure
 
-✅ Clean folder structure and modern coding standards
-
-Project Structure
+```
 todo-app/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py            # FastAPI app entry point
-│   │   ├── database.py        # MongoDB connection logic
-│   │   ├── models/            # Pydantic schemas
-│   │   ├── routes/            # Auth and task routes
-│   ├── .env                   # MongoDB URI and JWT secrets
-│   ├── requirements.txt       # Python dependencies
-│   ├── test_signup.py         # Signup test script
-│   └── venv/                  # Virtual environment (excluded from Git)
+│   │   ├── main.py           # FastAPI app
+│   │   ├── database.py       # MongoDB connection
+│   │   ├── auth.py           # JWT & authentication
+│   │   ├── routes/           # API endpoints
+│   │   └── models/           # Data models
+│   ├── requirements.txt      # Python dependencies
+│   └── .env.example          # Environment template
 ├── frontend/
-│   ├── components/            # Reusable UI components
-│   ├── pages/                 # login.tsx, signup.tsx, dashboard.tsx
-│   ├── public/                # Static assets
-│   ├── styles/                # Tailwind CSS
-│   ├── utils/                 # Helper functions
-│   ├── package.json           # Frontend dependencies
-│   ├── tsconfig.json          # TypeScript config
-│   └── node_modules/          # Installed packages (excluded from Git)
+│   ├── pages/                # React pages
+│   ├── components/           # Reusable components
+│   ├── utils/api.ts          # API client
+│   ├── package.json          # Node dependencies
+│   └── .env.example          # Environment template
+├── .gitignore                # Git ignore rules
+├── LICENSE                   # MIT License
+└── README.md                 # This file
+```
 
+## 📋 Prerequisites
 
-Todo App Startup Scripts
+- **Node.js** 18+ and **npm**
+- **Python** 3.8+
+- **MongoDB** (local or MongoDB Atlas)
 
-Backend Setup and Start (FastAPI + MongoDB)
+## ⚙️ Setup & Installation
 
-1. Navigate to backend directory:
+### Backend
+
 ```bash
 cd backend
-```
-
-2. create and Activate virtual environment:
 python -m venv venv
-# Windows
-.\venv\Scripts\activate
-# macOS/Linux
-source venv/bin/activate
+venv\Scripts\activate          # Windows
+source venv/bin/activate       # macOS/Linux
 
-```bash
-# Windows
-venv\Scripts\activate
+cp .env.example .env
+# Edit .env with your MongoDB URI and SECRET_KEY
 
-# macOS/Linux
-source venv/bin/activate
-```
-
-3. Install dependencies:
-```bash
 pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
-4. Create .env file
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/todo-app?retryWrites=true&w=majority
-SECRET_KEY=your_jwt_secret_key
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
 
-5. Start and Run the server:
-```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-Access Swagger docs
-Visit: http://127.0.0.1:8000/docs
+### Frontend
 
-Frontend Setup and Start
-
-1. Navigate to frontend directory:
 ```bash
 cd frontend
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
+cp .env.example .env.local
 
-3. Start the Next.js development server:
-```bash
 npm run dev
 ```
 
-JWT Authentication
-/signup → Registers user and stores in MongoDB
+Access at: `http://localhost:3000`
 
-/login → Verifies credentials and returns JWT token
+## 🔐 Environment Variables
 
-Passwords are hashed with bcrypt
+### Backend (.env)
+```
+MONGO_URI=mongodb://localhost:27017
+SECRET_KEY=your-secure-random-key
+ENV=development
+PORT=8000
+FRONTEND_URL=http://localhost:3000
+```
 
-Tokens expire with timezone-aware timestamps
+### Frontend (.env.local)
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+NODE_ENV=development
+```
 
-Access the Application
+**Important**: Never commit `.env` files. Use `.env.example` as templates. Both are listed in `.gitignore`.
 
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
-- API Documentation: http://localhost:8000/docs
+## 🚀 Running the Application
 
-Database
+### Quick Start (Windows)
+```bash
+./start-app.bat
+```
 
-The app uses MongoDB Atlas. The connection string is configured in `backend/app/database.py`.
+### Manual Start
+```bash
+# Terminal 1: Backend
+cd backend
+venv\Scripts\activate
+python -m uvicorn app.main:app --reload
 
-1. Navigate to frontend
-cd ../frontend
-
-2. Install dependencies
-npm install
-
-3. Run the frontend
+# Terminal 2: Frontend
+cd frontend
 npm run dev
-Visit: http://localhost:3000
+```
 
-Testing
-Use Swagger UI or Postman to test /signup and /login
+## 📚 API Documentation
 
-Use browser DevTools to inspect token storage and dashboard rendering
+Once backend is running:
+- **Swagger UI**: `http://localhost:8000/docs`
+- **ReDoc**: `http://localhost:8000/redoc`
 
-Run test_signup.py to verify backend signup flow
+### Main Endpoints
+- `POST /signup` - Register user
+- `POST /login` - Login user
+- `GET/POST /api/tasks` - Task operations
+- `PUT /api/tasks/{taskId}` - Update task
+- `DELETE /api/tasks/{taskId}` - Delete task
+- `GET/POST /api/labels` - Label operations
 
-Features
+## 🔒 Security
 
-- User authentication (signup/login)
-- Task management (create, read, update, delete)
-- Label management
-- Task labeling
-- Responsive design with Tailwind CSS
+- Passwords hashed with **bcrypt**
+- JWT tokens for stateless authentication
+- CORS configured for localhost
+- Pydantic validation on all inputs
+- Environment variables protect credentials
+- No hardcoded secrets in code
+- MongoDB credentials in `.env` (ignored by git)
 
-License
-This project is licensed under the MIT License.
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| MongoDB connection fails | Ensure MongoDB is running or check `MONGO_URI` in `.env` |
+| Port 8000 in use | Change port: `--port 8001` |
+| Port 3000 in use | `npm run dev -- -p 3001` |
+| Module not found (backend) | Run `pip install -r requirements.txt` |
+| Module not found (frontend) | Run `npm install` |
+| API calls failing | Verify backend running on port 8000, check `NEXT_PUBLIC_API_BASE_URL` |
+| Clear localStorage | Run in browser console: `localStorage.clear(); location.reload();` |
+
+## 📝 License
+
+Licensed under the **MIT License** - see [LICENSE](./LICENSE) file for details.
+
+MIT License allows free use, modification, and distribution. See LICENSE file for full terms.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -m 'Add feature'`
+4. Push branch: `git push origin feature/new-feature`
+5. Open Pull Request
+
+## 📞 Support
+
+- Check [Troubleshooting](#-troubleshooting) section
+- Review [Security](#-security) documentation
+- Check [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for production setup
+- Review [SECURITY_CHECKLIST.md](./SECURITY_CHECKLIST.md) for security details
+
+---
+
+**Version**: 1.0.0 | **Last Updated**: October 2025
+
