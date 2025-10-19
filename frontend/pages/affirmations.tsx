@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 
 const affirmations = [
@@ -38,22 +38,30 @@ export default function Affirmations() {
   const router = useRouter();
   const [affirmation, setAffirmation] = useState("");
   const [usedIndices, setUsedIndices] = useState<number[]>([]);
+  const [backButtonStyle, setBackButtonStyle] = useState({});
+  const isInitialized = useRef(false);
 
   const displayNewAffirmation = useCallback(() => {
-    let availableIndices = Array.from({ length: affirmations.length }, (_, i) => i);
-    
-    // If we've used all affirmations, reset
-    if (usedIndices.length === affirmations.length) {
-      setUsedIndices([]);
-      availableIndices = Array.from({ length: affirmations.length }, (_, i) => i);
-    } else {
-      availableIndices = availableIndices.filter(i => !usedIndices.includes(i));
-    }
+    setUsedIndices(prevUsedIndices => {
+      let availableIndices = Array.from({ length: affirmations.length }, (_, i) => i);
+      
+      // If we've used all affirmations, reset
+      if (prevUsedIndices.length === affirmations.length) {
+        availableIndices = Array.from({ length: affirmations.length }, (_, i) => i);
+      } else {
+        availableIndices = availableIndices.filter(i => !prevUsedIndices.includes(i));
+      }
 
-    const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-    setAffirmation(affirmations[randomIndex]);
-    setUsedIndices(prev => [...prev, randomIndex]);
-  }, [usedIndices]);
+      const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+      setAffirmation(affirmations[randomIndex]);
+      
+      // Return new used indices
+      if (prevUsedIndices.length === affirmations.length) {
+        return [randomIndex];
+      }
+      return [...prevUsedIndices, randomIndex];
+    });
+  }, []);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -63,7 +71,11 @@ export default function Affirmations() {
       return;
     }
 
-    displayNewAffirmation();
+    // Only initialize once on mount
+    if (!isInitialized.current) {
+      isInitialized.current = true;
+      displayNewAffirmation();
+    }
   }, [router, displayNewAffirmation]);
 
   return (
@@ -82,8 +94,17 @@ export default function Affirmations() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontStyle: "italic",
-              color: "#4A4A4A"
+              color: "#4A4A4A",
+              ...backButtonStyle
             }}
+            onMouseEnter={() => setBackButtonStyle({
+              transform: "scale(1.05)",
+              transition: "all 0.2s ease"
+            })}
+            onMouseLeave={() => setBackButtonStyle({
+              transform: "scale(1)",
+              transition: "all 0.2s ease"
+            })}
           >
             ← Back
           </button>
@@ -104,7 +125,7 @@ export default function Affirmations() {
               flexDirection: "column",
               alignItems: "center"
             }}>
-              {/* Decorative element - Prayer hands icon */}
+              {/* Decorative element - Heart icon */}
               <div style={{
                 display: "flex",
                 justifyContent: "center",
@@ -112,9 +133,7 @@ export default function Affirmations() {
                 animation: "pulse 2s infinite"
               }}>
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M17 21V9c0-1.105.895-2 2-2s2 .895 2 2v12" />
-                  <path d="M7 21V9c0-1.105-.895-2-2-2s-2 .895-2 2v12" />
-                  <path d="M12 21V3m0 18H7m5 0h5M12 3l-2 4m4 0l-2-4" />
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
               </div>
 
@@ -187,9 +206,7 @@ export default function Affirmations() {
                   }}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M17 21V9c0-1.105.895-2 2-2s2 .895 2 2v12" />
-                    <path d="M7 21V9c0-1.105-.895-2-2-2s-2 .895-2 2v12" />
-                    <path d="M12 21V3m0 18H7m5 0h5M12 3l-2 4m4 0l-2-4" />
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                   </svg>
                   <span>New Affirmation</span>
                 </button>

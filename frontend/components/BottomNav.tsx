@@ -41,9 +41,7 @@ export default function BottomNav() {
       label: "Affirmations", 
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17 21V9c0-1.105.895-2 2-2s2 .895 2 2v12" />
-          <path d="M7 21V9c0-1.105-.895-2-2-2s-2 .895-2 2v12" />
-          <path d="M12 21V3m0 18H7m5 0h5M12 3l-2 4m4 0l-2-4" />
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
         </svg>
       ), 
       path: "/affirmations" 

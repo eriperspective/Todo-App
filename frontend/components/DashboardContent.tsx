@@ -377,12 +377,12 @@ export default function DashboardContent() {
 
                 {/* Create Task Form */}
                 <form onSubmit={handleCreateTask} style={{ 
-                  backgroundColor: "var(--color-bg-light)",
+                  background: "linear-gradient(135deg, #FF5844 0%, #0F9B9D 100%)",
                   padding: "1.5rem",
                   borderRadius: "12px",
                   marginBottom: "1.5rem"
                 }}>
-                  <h3 style={{ marginBottom: "1rem", color: "var(--color-primary)" }}>Create New Task</h3>
+                  <h3 style={{ marginBottom: "1rem", color: "white" }}>Create New Task</h3>
                   <input 
                     name="title" 
                     placeholder="Task title" 
