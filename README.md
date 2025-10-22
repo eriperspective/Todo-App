@@ -1,4 +1,4 @@
-# 📝 Todo App
+# Todo App
 
 A modern full-stack task management application built with **FastAPI** (Python) and **Next.js** (React + TypeScript). Features task management, authentication, calendar view, labels, and affirmations.
 
@@ -6,7 +6,7 @@ A modern full-stack task management application built with **FastAPI** (Python) 
 ![Backend: FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)
 ![Frontend: Next.js](https://img.shields.io/badge/Frontend-Next.js-000000.svg)
 
-## ✨ Features
+## Features
 
 - **Authentication**: JWT-based login/signup with bcrypt password hashing
 - **Task Management**: Create, update, delete, filter, and search tasks by priority/labels
@@ -17,7 +17,7 @@ A modern full-stack task management application built with **FastAPI** (Python) 
 - **Theme Support**: Light/Dark mode with persistent settings
 - **Responsive Design**: Works on desktop, tablet, and mobile
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Component | Technology | Version |
 |-----------|-----------|---------|
@@ -26,7 +26,7 @@ A modern full-stack task management application built with **FastAPI** (Python) 
 | Database | MongoDB | ≥4.10.0 |
 | Authentication | JWT, bcrypt | - |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 todo-app/
@@ -50,13 +50,13 @@ todo-app/
 └── README.md                 # This file
 ```
 
-## 📋 Prerequisites
+## Prerequisites
 
 - **Node.js** 18+ and **npm**
 - **Python** 3.8+
 - **MongoDB** (local or MongoDB Atlas)
 
-## ⚙️ Setup & Installation
+## Setup & Installation
 
 ### Backend
 
@@ -85,7 +85,7 @@ npm run dev
 
 Access at: `http://localhost:3000`
 
-## 🔐 Environment Variables
+## Environment Variables
 
 ### Backend (.env)
 ```
@@ -104,7 +104,7 @@ NODE_ENV=development
 
 **Important**: Never commit `.env` files. Use `.env.example` as templates. Both are listed in `.gitignore`.
 
-## 🚀 Running the Application
+## Running the Application
 
 ### Quick Start (Windows)
 ```bash
@@ -123,7 +123,7 @@ cd frontend
 npm run dev
 ```
 
-## 📚 API Documentation
+## API Documentation
 
 Once backend is running:
 - **Swagger UI**: `http://localhost:8000/docs`
@@ -137,7 +137,7 @@ Once backend is running:
 - `DELETE /api/tasks/{taskId}` - Delete task
 - `GET/POST /api/labels` - Label operations
 
-## 🔒 Security
+## Security
 
 - Passwords hashed with **bcrypt**
 - JWT tokens for stateless authentication
@@ -147,7 +147,7 @@ Once backend is running:
 - No hardcoded secrets in code
 - MongoDB credentials in `.env` (ignored by git)
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
@@ -159,13 +159,13 @@ Once backend is running:
 | API calls failing | Verify backend running on port 8000, check `NEXT_PUBLIC_API_BASE_URL` |
 | Clear localStorage | Run in browser console: `localStorage.clear(); location.reload();` |
 
-## 📝 License
+## License
 
 Licensed under the **MIT License** - see [LICENSE](./LICENSE) file for details.
 
 MIT License allows free use, modification, and distribution. See LICENSE file for full terms.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create feature branch: `git checkout -b feature/new-feature`
@@ -173,7 +173,7 @@ MIT License allows free use, modification, and distribution. See LICENSE file fo
 4. Push branch: `git push origin feature/new-feature`
 5. Open Pull Request
 
-## 📞 Support
+## Support
 
 - Check [Troubleshooting](#-troubleshooting) section
 - Review [Security](#-security) documentation

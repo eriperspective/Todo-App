@@ -48,12 +48,15 @@ Example Login Response
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "token_type": "bearer"
 }
+```
 
-Use this token in protected routes with:
+**Note:** The `access_token` above is an example format. You'll receive your own valid token after logging in with your credentials. Use that token in protected routes with:
+```
 Authorization: Bearer <your_token>
+```
 
 
-📁 Folder Structure
+Folder Structure
 backend/
 ├── app/
 │   ├── main.py

@@ -27,7 +27,7 @@ The users_collection is initialized from the todo-app database
 
 The /signup route inserts new users into the users collection
 
-📁 Relevant Files
+Relevant Files
 backend/
 ├── app/
 │   ├── database.py      # MongoDB connection logic
@@ -38,14 +38,14 @@ Example Signup Request
 POST /signup
 Request Body:
 {
-  "username": "wealthy",
-  "email": "wealthy@example.com",
-  "password": "Blessed123!"
+  "username": "username",
+  "email": "example@example.com",
+  "password": "password"
 }
 
 Response:
 {
-  "message": "User wealthy saved to MongoDB!",
+  "message": "User name saved to MongoDB!",
   "user_id": "..."
 }
 
