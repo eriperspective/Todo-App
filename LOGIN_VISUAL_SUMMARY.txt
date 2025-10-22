@@ -146,4 +146,4 @@ The login page now features a sophisticated, elegant design with:
 - Smooth, continuous animations
 - Professional hover effects
 
-Enjoy your enhanced login page!
+

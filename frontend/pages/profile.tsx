@@ -23,7 +23,7 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<UserProfile>(profile);
 
-  const avatarOptions = ["👤", "😀", "🧑", "👨", "👩", "🐱", "🐶", "⭐", "🎯", "🚀"];
+  const avatarOptions = ["User1", "User2", "User3", "User4", "User5", "Pet1", "Pet2", "Star", "Target", "Rocket"];
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -378,7 +378,7 @@ export default function Profile() {
                     color: "var(--color-success)",
                     fontFamily: "'Playfair Display', serif"
                   }}>
-                    Active ✓
+                    Active
                   </p>
                 </div>
               </div>

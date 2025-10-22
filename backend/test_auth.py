@@ -62,11 +62,11 @@ if __name__ == "__main__":
     
     print("\n" + "=" * 40)
     print("Test Results:")
-    print(f"Health Check: {'✓' if health_ok else '✗'}")
-    print(f"Signup: {'✓' if signup_ok else '✗'}")
-    print(f"Login: {'✓' if login_ok else '✗'}")
+    print(f"Health Check: {'PASS' if health_ok else 'FAIL'}")
+    print(f"Signup: {'PASS' if signup_ok else 'FAIL'}")
+    print(f"Login: {'PASS' if login_ok else 'FAIL'}")
     
     if all([health_ok, signup_ok, login_ok]):
-        print("\n🎉 All tests passed! Authentication is working.")
+        print("\nAll tests passed! Authentication is working.")
     else:
-        print("\n❌ Some tests failed. Check the backend server and MongoDB connection.")
+        print("\nSome tests failed. Check the backend server and MongoDB connection.")

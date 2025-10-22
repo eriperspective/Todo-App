@@ -69,7 +69,7 @@ export default function CelebrationEffect({ trigger }: { trigger: boolean }) {
 
       {/* Success Message */}
       <div className="success-message">
-        <span className="success-emoji">🎉</span>
+        <span className="success-emoji"></span>
         <h2>Goal Completed!</h2>
         <p>You reached 100%! Amazing work!</p>
       </div>

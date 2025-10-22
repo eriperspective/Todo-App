@@ -113,7 +113,7 @@ def find_user_by_email(email: str):
 def verify_password(plain_password: str, hashed_password: bytes):
     return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password)
 
-# 🏷️ Label functions
+# Label functions
 def create_label(label_data: dict, user_id: str):
     _initialize_database()
     label_data["user_id"] = user_id
@@ -137,7 +137,7 @@ def assign_labels_to_task(task_id: str, labels: list):
             tasks_collection.update_one({"_id": task_id}, {"$set": {"labels": labels}})
     return True
 
-# 📦 Collection accessors
+# Collection accessors
 def get_task_collection():
     _initialize_database()
     return tasks_collection

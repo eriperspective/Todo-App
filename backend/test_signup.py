@@ -25,14 +25,14 @@ def test_signup():
         print(f"Response: {response.json()}")
         
         if response.status_code == 200:
-            print("✅ Signup successful!")
+            print(" Signup successful!")
         else:
-            print("❌ Signup failed!")
+            print(" Signup failed!")
             
     except requests.exceptions.ConnectionError:
-        print("❌ Could not connect to server. Make sure the FastAPI server is running on localhost:8000")
+        print(" Could not connect to server. Make sure the FastAPI server is running on localhost:8000")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
 
 if __name__ == "__main__":
     test_signup()

@@ -17,9 +17,9 @@ print("=" * 60)
 print("\n1. Testing app import...")
 try:
     from app.main import app
-    print("   ✅ App imported successfully")
+    print("   PASS App imported successfully")
 except Exception as e:
-    print(f"   ❌ Failed to import app: {e}")
+    print(f"   FAIL Failed to import app: {e}")
     sys.exit(1)
 
 # Test 2: Check if docs_url is set
@@ -38,14 +38,14 @@ print("\n4. Testing OpenAPI schema generation...")
 try:
     openapi_schema = app.openapi()
     if openapi_schema:
-        print(f"   ✅ OpenAPI schema generated ({len(str(openapi_schema))} bytes)")
+        print(f"   PASS OpenAPI schema generated ({len(str(openapi_schema))} bytes)")
         print(f"   - Title: {openapi_schema.get('info', {}).get('title')}")
         print(f"   - Version: {openapi_schema.get('info', {}).get('version')}")
         print(f"   - Paths: {len(openapi_schema.get('paths', {}))}")
     else:
-        print("   ❌ OpenAPI schema is empty")
+        print("   FAIL OpenAPI schema is empty")
 except Exception as e:
-    print(f"   ❌ Failed to generate OpenAPI schema: {e}")
+    print(f"   FAIL Failed to generate OpenAPI schema: {e}")
     import traceback
     traceback.print_exc()
 
@@ -61,9 +61,9 @@ try:
     from fastapi.testclient import TestClient
     client = TestClient(app)
     response = client.get("/")
-    print(f"   ✅ Health endpoint: {response.status_code} - {response.json()}")
+    print(f"   PASS Health endpoint: {response.status_code} - {response.json()}")
 except Exception as e:
-    print(f"   ❌ Failed to test health endpoint: {e}")
+    print(f"   FAIL Failed to test health endpoint: {e}")
 
 # Test 7: Test the docs endpoint
 print("\n7. Testing /docs endpoint simulation...")
@@ -72,13 +72,13 @@ try:
     client = TestClient(app)
     response = client.get("/docs")
     if response.status_code == 200:
-        print(f"   ✅ /docs endpoint accessible: {response.status_code}")
+        print(f"   PASS /docs endpoint accessible: {response.status_code}")
         print(f"   - Content length: {len(response.content)}")
     else:
-        print(f"   ❌ /docs endpoint returned: {response.status_code}")
+        print(f"   FAIL /docs endpoint returned: {response.status_code}")
         print(f"   - Response: {response.text[:200]}")
 except Exception as e:
-    print(f"   ❌ Failed to test /docs endpoint: {e}")
+    print(f"   FAIL Failed to test /docs endpoint: {e}")
     import traceback
     traceback.print_exc()
 

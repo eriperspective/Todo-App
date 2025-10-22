@@ -28,7 +28,7 @@ export default function Login() {
       if (res.data.access_token) {
         localStorage.setItem('token', res.data.access_token);
         localStorage.setItem('user_id', res.data.user_id);
-        setMessage('✓ Login successful! Redirecting...');
+        setMessage('Login successful! Redirecting...');
         setMessageType('success');
         setTimeout(() => {
           window.location.href = '/dashboard';

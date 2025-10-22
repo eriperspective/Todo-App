@@ -91,15 +91,15 @@ def main():
     # Summary
     print("=" * 50)
     print("Test Summary:")
-    print(f"Health check: {'✓' if health_ok else '✗'}")
-    print(f"Signup: {'✓' if signup_ok else '✗'}")
-    print(f"Login: {'✓' if token else '✗'}")
-    print(f"Protected endpoint: {'✓' if protected_ok else '✗'}")
+    print(f"Health check: {'PASS' if health_ok else 'FAIL'}")
+    print(f"Signup: {'PASS' if signup_ok else 'FAIL'}")
+    print(f"Login: {'PASS' if token else 'FAIL'}")
+    print(f"Protected endpoint: {'PASS' if protected_ok else 'FAIL'}")
     
     if all([health_ok, signup_ok, token, protected_ok]):
-        print("\n🎉 All tests passed! Your backend is working correctly.")
+        print("\nAll tests passed! Your backend is working correctly.")
     else:
-        print("\n❌ Some tests failed. Check the error messages above.")
+        print("\nSome tests failed. Check the error messages above.")
 
 if __name__ == "__main__":
     main()

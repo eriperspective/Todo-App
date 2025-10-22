@@ -18,20 +18,20 @@ def test_docs_endpoint():
         response_time = end_time - start_time
         
         if response.status_code == 200:
-            print(f"✅ /docs endpoint is accessible! Response time: {response_time:.2f}s")
+            print(f"PASS /docs endpoint is accessible! Response time: {response_time:.2f}s")
             return True
         else:
-            print(f"❌ /docs endpoint returned status {response.status_code}")
+            print(f"FAIL /docs endpoint returned status {response.status_code}")
             return False
             
     except requests.exceptions.ConnectionError:
-        print("❌ Cannot connect to server. Is it running on localhost:8000?")
+        print("FAIL Cannot connect to server. Is it running on localhost:8000?")
         return False
     except requests.exceptions.Timeout:
-        print("❌ Request timed out. Server might be slow or unresponsive.")
+        print("FAIL Request timed out. Server might be slow or unresponsive.")
         return False
     except Exception as e:
-        print(f"❌ Error testing /docs endpoint: {e}")
+        print(f"FAIL Error testing /docs endpoint: {e}")
         return False
 
 def test_health_endpoint():
@@ -41,14 +41,14 @@ def test_health_endpoint():
         response = requests.get("http://localhost:8000/", timeout=5)
         
         if response.status_code == 200:
-            print(f"✅ Health endpoint is accessible! Response: {response.json()}")
+            print(f"PASS Health endpoint is accessible! Response: {response.json()}")
             return True
         else:
-            print(f"❌ Health endpoint returned status {response.status_code}")
+            print(f"FAIL Health endpoint returned status {response.status_code}")
             return False
             
     except Exception as e:
-        print(f"❌ Error testing health endpoint: {e}")
+        print(f"FAIL Error testing health endpoint: {e}")
         return False
 
 if __name__ == "__main__":
@@ -61,8 +61,8 @@ if __name__ == "__main__":
     
     print("\n" + "=" * 40)
     if health_ok and docs_ok:
-        print("🎉 All endpoints are accessible!")
+        print("PASS All endpoints are accessible!")
     elif health_ok:
-        print("⚠️  Health endpoint works but /docs has issues")
+        print("Health endpoint works but /docs has issues")
     else:
-        print("❌ Server is not responding properly")
+        print("FAIL Server is not responding properly")

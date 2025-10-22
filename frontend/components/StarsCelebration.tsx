@@ -56,7 +56,7 @@ export default function StarsCelebration({ trigger }: { trigger: boolean }) {
 
       {/* Task Complete Message */}
       <div className="task-complete-message">
-        <span className="complete-emoji">⭐</span>
+        <span className="complete-emoji"></span>
         <h2>Task Completed!</h2>
         <p>Great job! You're making progress!</p>
       </div>

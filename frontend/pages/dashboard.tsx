@@ -1220,7 +1220,7 @@ export default function Dashboard() {
                     </div>
                   ) : getFilteredTasks().length === 0 ? (
                     <div className="empty-state" style={{ fontFamily: "'Playfair Display', serif" }}>
-                      <div className="empty-state-icon">📋</div>
+                      <div className="empty-state-icon"></div>
                       <div className="empty-state-title">No tasks yet</div>
                       <div className="empty-state-description">Create a task using the form above to get started</div>
                     </div>
@@ -1429,7 +1429,7 @@ export default function Dashboard() {
                                           <div style={{ fontWeight: 500 }}>{assignee.name}</div>
                                         </div>
                                         {task.assignee === assignee.id && (
-                                          <span style={{ color: "#20B2AA", fontWeight: "bold" }}>✓</span>
+                                          <span style={{ color: "#20B2AA", fontWeight: "bold" }}>Selected</span>
                                         )}
                                       </button>
                                     ))

@@ -34,7 +34,7 @@ export default function Signup() {
       });
       
       if (res.data.user_id) {
-        setMessage('✓ Account created successfully! Redirecting to login...');
+        setMessage('Account created successfully! Redirecting to login...');
         setMessageType('success');
         setTimeout(() => {
           window.location.href = '/login';
