@@ -1,4 +1,4 @@
-# Todo App
+# Task Management App
 
 A modern full-stack task management application built with **FastAPI** (Python) and **Next.js** (React + TypeScript). Features task management, authentication, calendar view, labels, and affirmations.
 
